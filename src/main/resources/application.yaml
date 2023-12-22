@@ -1,9 +1,9 @@
 
 spring:
   datasource:
-    password: wolly2024
-    url: jdbc:mysql://127.0.0.1:3307/admin_app
+    url: jdbc:mysql://127.0.0.1:3306/adminapp-db?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
+    password: root
   jpa:
     hibernate:
       ddl_auto: update

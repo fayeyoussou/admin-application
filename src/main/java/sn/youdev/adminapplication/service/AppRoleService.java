@@ -37,10 +37,17 @@ public class AppRoleService {
     }
 
     @Transactional(readOnly = true)
-    public AppRoleDto getAppRole(int id) {
+    public AppRoleDto getAppRoleById(int id) {
         return appRolesMapper.fromAppRole(appRoleRepository.findById(id)
                 .orElseThrow(() ->
                         new EntityNotFoundException(messageSource.getMessage("role.notfound", new Object[]{id},
+                                Locale.getDefault()))));
+    }
+    @Transactional(readOnly = true)
+    public AppRoleDto getAppRoleByNom(String nom) {
+        return appRolesMapper.fromAppRole(appRoleRepository.findAppRoleByNom(nom)
+                .orElseThrow(() ->
+                        new EntityNotFoundException(messageSource.getMessage("role.notfound", new Object[]{nom},
                                 Locale.getDefault()))));
     }
 
