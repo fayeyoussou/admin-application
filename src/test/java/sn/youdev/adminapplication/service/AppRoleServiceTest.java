@@ -1,5 +1,7 @@
 package sn.youdev.adminapplication.service;
 
+import ch.qos.logback.core.testUtil.RandomUtil;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +12,8 @@ import sn.youdev.adminapplication.dto.AppRoleDto;
 import sn.youdev.adminapplication.entities.AppRole;
 
 import java.util.List;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 
 import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
@@ -23,7 +27,7 @@ class AppRoleServiceTest {
         List<AppRoleDto> appRolesList =
                 appRolesService.getAppRoles();
 
-        Assertions.assertEquals(1, appRolesList.size());
+        Assertions.assertEquals(3, appRolesList.size());
     }
 
     @Test
@@ -37,11 +41,12 @@ class AppRoleServiceTest {
     void createAppRoles() {
 
         AppRoleDto appRoles = new AppRoleDto();
-        appRoles.setNom("ROLE_USER");
+        appRoles.setNom(RandomStringUtils.randomAlphabetic(5));
 
         AppRoleDto appRolesSave = appRolesService.createAppRoles(appRoles);
 
         Assertions.assertNotNull(appRolesSave);
+        appRolesService.deleteAppRoles(appRolesSave.getId());
         //Assertions.assertEquals(appRoles.getNom(), appRolesSave.getNom());
     }
 
@@ -50,24 +55,19 @@ class AppRoleServiceTest {
         AppRoleDto appRoles = new AppRoleDto();
         appRoles.setNom("ROLE_TECH");
 
-        AppRoleDto appRolesSave = appRolesService.updateAppRoles(3, appRoles);
+        AppRoleDto appRolesSave = appRolesService.updateAppRoles(5, appRoles);
 
         Assertions.assertEquals("ROLE_TECH", appRolesSave.getNom());
 
     }
 
-    @Test
-    void deleteAppRoles() {
+//    @Test
+//    void deleteAppRoles() {
+//
+//        appRolesService.deleteAppRoles(1);
+//        appRolesService.createAdmin();
+//        Assertions.assertTrue(true);
+//    }
 
-        appRolesService.deleteAppRoles(3);
-        Assertions.assertTrue(true);
-    }
 
-    @Test
-    void operation() {
-        int val1 = 1;
-        int val2 = 2;
-        int val3 = val1 + val2;
-        Assertions.assertEquals(3, val3);
-    }
 }

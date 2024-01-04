@@ -8,6 +8,6 @@ import sn.youdev.adminapplication.entities.AppRole;
 import java.util.Optional;
 
 @Repository
-public interface AppRoleRepository extends JpaRepository<AppRole, Integer>, JpaSpecificationExecutor<AppRole> {
+public interface AppRoleRepository extends JpaRepository<AppRole, Integer>{
     Optional<AppRole> findAppRoleByNom(String nom);
 }

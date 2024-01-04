@@ -19,7 +19,7 @@ public class AppRoleController {
         return appRoleService.getAppRoles();
     }
     @GetMapping("/{nom}")
-    public AppRoleDto getAppRoleById(@PathVariable("nom") final String nom){
+    public AppRoleDto getAppRoleByName(@PathVariable("nom") final String nom){
         return appRoleService.getAppRoleByNom(nom);
     }
     @PostMapping

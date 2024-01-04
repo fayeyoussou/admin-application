@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sn.youdev.adminapplication.dao.AppRoleRepository;
 import sn.youdev.adminapplication.dto.AppRoleDto;
+import sn.youdev.adminapplication.entities.AppRole;
 import sn.youdev.adminapplication.exception.EntityNotFoundException;
 import sn.youdev.adminapplication.exception.RequestException;
 import sn.youdev.adminapplication.mapper.AppRoleMapper;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.StreamSupport;
 
 @Service
 public class AppRoleService {
@@ -31,7 +31,7 @@ public class AppRoleService {
 
     @Transactional(readOnly = true)
     public List<AppRoleDto> getAppRoles() {
-        return StreamSupport.stream(appRoleRepository.findAll().spliterator(), false)
+        return appRoleRepository.findAll().stream()
                 .map(appRolesMapper::fromAppRole)
                 .toList();
     }
@@ -58,11 +58,11 @@ public class AppRoleService {
 
     @Transactional
     public AppRoleDto updateAppRoles(int id, AppRoleDto appRoles) {
-        return appRoleRepository.findById(id)
-                .map(entity -> appRolesMapper.fromAppRole(
-                            appRoleRepository.save(appRolesMapper.toAppRole(appRoles)))
-                ).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("role.notfound", new Object[]{id},
-                        Locale.getDefault())));
+         AppRole appRole = appRoleRepository.findById(id).orElseThrow(()->new EntityNotFoundException(messageSource.getMessage("role.notfound", new Object[]{id},
+                 Locale.getDefault())));
+         appRole.setNom(appRoles.getNom());
+         return  appRolesMapper.fromAppRole(appRoleRepository.saveAndFlush(appRole));
+
     }
 
     @Transactional
