@@ -1,6 +1,5 @@
 package sn.youdev.adminapplication.service;
 
-import ch.qos.logback.core.testUtil.RandomUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,13 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import sn.youdev.adminapplication.dto.AppRoleDto;
-import sn.youdev.adminapplication.entities.AppRole;
 
 import java.util.List;
-import java.util.Random;
-import java.util.random.RandomGenerator;
 
-import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class AppRoleServiceTest {

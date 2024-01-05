@@ -29,10 +29,7 @@
     <dependencies>
 
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -91,7 +88,7 @@
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
-            <version>0.2.0</version>
+            <version>0.2.6</version>
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
@@ -153,6 +150,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <image>
+                        <builder>paketobuildpacks/builder-jammy-base:latest</builder>
+                    </image>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
@@ -209,12 +209,12 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <generatorName>spring</generatorName> <!-- pour backend spring -->
+                            <generatorName>spring</generatorName>
                             <inputSpec>${openapi.dir}/interfaces/global-api.yml</inputSpec>
-                            <generateModels>true</generateModels> <!-- cette valeur peut etre a false tout depend du module -->
-                            <generateApis>true</generateApis> <!-- cette valeur peut etre a false tout depend du module -->
+                            <generateModels>true</generateModels>
+                            <generateApis>true</generateApis>
                             <generateSupportingFiles>true</generateSupportingFiles>
-                            <output>target/generated-sources</output>
+                            <output>${project.build.directory}/generated-sources</output>
                             <configOptions>
                                 <sourceFolder>src/gen/main/java</sourceFolder>
                                 <java8>true</java8>
@@ -224,6 +224,7 @@
                                 <unhandledException>true</unhandledException>
                                 <useTags>true</useTags>
                             </configOptions>
+                            <!-- Add any additional configuration options if needed -->
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                         </configuration>
                     </execution>
